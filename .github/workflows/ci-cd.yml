@@ -1,0 +1,30 @@
+name: CI/CD for ITEAHub Website
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required project files
+        run: |
+          echo "Checking website structure..."
+          test -f index.html
+          test -d css
+          test -d js
+          test -d pages
+          echo "Project structure is valid"
+
+      - name: Check HTML files
+        run: |
+          echo "Checking HTML files..."
+          find . -name "*.html"
+          echo "HTML files were found successfully"
